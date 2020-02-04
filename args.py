@@ -31,6 +31,12 @@ def argumentos():
 
     #Retgorna un string con el nombre del archivo
     return ""+args.archivoImg[0]
+    '''
+    #Busca la existencia de archivos .config
+    if archivoImg.find(".cfg") == -1:
+        sys.exit("No ingreso un archivo valido")
+    '''
+
 
 if __name__ == '__main__':
     sys.exit("Error, ejecute python program -h")
