@@ -1,10 +1,9 @@
-import argv
-from enlace import *
+import args
 import sys
 
 def procesarArchivo():
     #Recibe los argumentos de la linea de comandos
-    nombreArchivo = argv.argumentos()
+    nombreArchivo = args.argumentos()
 
     #Intenta Abrir el Archivo
     try:
@@ -14,21 +13,22 @@ def procesarArchivo():
     
     #Procesar el archivo
     print("El archivo %s fue abierto "%(nombreArchivo))
-    imgInfoFile.readline
-
-    while (linea = imgInfoFile.readline()):
-        print(linea)
-    
+    lineas = imgInfoFile.readlines() 
 
     # Cierra el archivo
-    archivoConfiguracion.close()
+    imgInfoFile.close()
+
+    return lineas
 
 # 
 # Main
 #
 def main():
-    
-    procesarArchivo()
+    lineas = procesarArchivo()
+    for linea in lineas:
+        # Si inicia una nueva imagen
+        if linea.find('img') != -1:
+            print(linea)
     print("\n\n")
 
 if __name__ == '__main__':
