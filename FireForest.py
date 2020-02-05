@@ -103,7 +103,7 @@ def main():
                 medAzul, desStAzu = cv2.meanStdDev(imageFile[miny:maxy, minx:maxx, 0])
                 medVerd, desStVer = cv2.meanStdDev(imageFile[miny:maxy, minx:maxx, 1])
                 medRojo, desStRoj = cv2.meanStdDev(imageFile[miny:maxy, minx:maxx, 2])
-                
+
                 #Se escribe en el archivo
                 arffDB.write(str(medAzul[0][0])+",")
                 arffDB.write(str(medVerd[0][0])+",")
