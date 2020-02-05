@@ -38,12 +38,12 @@ def procesarArchivo():
 #
 def main():
     lineas = procesarArchivo()
-    listaImg = []
+    listaImg = [][]
     '''
     donde:
-    listaImg[0] = String nombre
-    listaImg[0] = imagen cv2
-    listaImg[0] = Atributo Clasificador(H,N,I.....)
+    listaImg[0][0] = String nombre
+    listaImg[0][1] = imagen cv2
+    listaImg[0][2] = Atributo Clasificador(H,N,I.....)
     '''
     listaAc = []
     # imagen
