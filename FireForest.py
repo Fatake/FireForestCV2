@@ -6,8 +6,9 @@ import numpy as np
 #
 # Constantes
 #
-GRIND_COLUMS = 8
-GRIND_ROWS = 4
+GRID_COLUMS = 8
+GRID_ROWS   = 4
+TOTAL_GRIDS = GRID_COLUMS * GRID_ROWS
 
 def procesarArchivo():
     '''
@@ -25,7 +26,6 @@ def procesarArchivo():
         sys.exit("Error al abrir el archivo "+nombreArchivo)
     
     #Procesar el archivo
-    print("El archivo %s fue abierto "%(nombreArchivo))
     lineas = imgInfoFile.readlines() 
 
     # Cierra el archivo
@@ -45,7 +45,7 @@ def procesarArchivo():
         listaAux.append(imgAC)
         listaImg.append(listaAux)
 
-    return lineas
+    return listaImg
 
 # 
 # Main
@@ -54,20 +54,37 @@ def main():
     listaImg = procesarArchivo()
     '''
     donde:
-    listaImg[0][0] = String nombre
-    listaImg[0][1] = Atributo Clasificador(H,N,I.....)
+    listaImg[][0] = String nombre
+    listaImg[][1] = Atributo Clasificador(H,N,I.....)
     '''
     '''
     imageFile = cv2.imread(nameImg)
     cv2.imshow(nameImg,imageFile)
     cv2.waitKey(50)
     '''
-    
+    for imagenes in listaImg:
+        # Se recorren los grinds
+        nameImg = imagenes[0]
+        imageFile = cv2.imread(nameImg)
         
-    aux = listaImg[0][1]
-    print("Tamaño Lista Listas:"+aux)
-    print("\n\n")
-    print("Aqui")
+
+        heigth, width, depth = imageFile.shape
+        nimage = imageFile
+        for gridy in range(0, GRID_ROWS):
+
+            miny = int( gridy * heigth / GRID_ROWS )
+            maxy = int( (gridy + 1) * heigth / GRID_ROWS )
+
+            for gridx in range(0, GRID_COLUMS):
+                minx = int( gridx * width/ GRID_COLUMS )
+                maxx = int( (gridx + 1) * width/ GRID_COLUMS )
+                #nueva = cv2.meanStdDev(imageFile[miny:maxy, minx:maxx])
+                #nimage[miny:maxy, minx:maxx] = nueva
+                cv2.imshow(str(gridx),imageFile[miny:maxy, minx:maxx])
+                cv2.waitKey(500)
+        
+        ##cv2.imwrite("alter"+nameImg, nimage)
+                 
     
 
     #Tabaja en milsegundos
