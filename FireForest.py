@@ -31,33 +31,41 @@ def procesarArchivo():
     # Cierra el archivo
     imgInfoFile.close()
 
+    listaImg = []
+    # Para todas la lineas buscando los archivos y agregando a una lista de listas
+    for linea in lineas:
+        listaAux = []
+        # Separa la linea entre nombre y Atributo Clasificador
+        nameImg, imgAC = linea.split(": ")
+        nameImg.replace("\n","")
+        nameImg += ".jpg"
+        
+        #Agrega la imagen y atributos a la lista de listas de imagen
+        listaAux.append(nameImg)
+        listaAux.append(imgAC)
+        listaImg.append(listaAux)
+
     return lineas
 
 # 
 # Main
 #
 def main():
-    lineas = procesarArchivo()
-    listaImg = [][]
+    listaImg = procesarArchivo()
     '''
     donde:
     listaImg[0][0] = String nombre
-    listaImg[0][1] = imagen cv2
-    listaImg[0][2] = Atributo Clasificador(H,N,I.....)
+    listaImg[0][1] = Atributo Clasificador(H,N,I.....)
     '''
-    listaAc = []
-    # imagen
-    for linea in lineas:
-        # Si inicia una nueva imagen
-        if linea.find('img') != -1:##Si encuentra un nombre de imagen
-            listaAc = []
-            nameImg = linea.replace("\n","")
-            nameImg = cv2.imread(nameImg)
-            listaImg.append(nameImg)
-            listaImg.append(nameImg)
-            cv2.imshow(nameImg,imagen)
-            cv2.waitKey(1000)
-
+    '''
+    imageFile = cv2.imread(nameImg)
+    cv2.imshow(nameImg,imageFile)
+    cv2.waitKey(50)
+    '''
+    
+        
+    aux = listaImg[0][1]
+    print("Tamaño Lista Listas:"+aux)
     print("\n\n")
     print("Aqui")
     
