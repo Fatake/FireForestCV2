@@ -4,6 +4,9 @@ desviación rgv, saturacion y brillo.
 
 ## Modo de uso
 
+`$> Python FireForest.py -h`
+`$> Python FireForest.py --help`
+`$> Python FireForest.py -f imageColector.txt`
 `$> Python FireForest.py --file imageColector.txt`
 
 
