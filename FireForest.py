@@ -71,10 +71,8 @@ def main():
     arffDB.write("@attribute BDesEst numeric\n")# Azul Desviacion estandar
     arffDB.write("@attribute GDesEst numeric\n")# Verde Desviacion estandar
     arffDB.write("@attribute RDesEst numeric\n")# Rojo Desviacion estandar
-    arffDB.write("@attribute BEntro numeric\n")# Azul Entropia
-    arffDB.write("@attribute GEntro numeric\n")# Verde Entropia
-    arffDB.write("@attribute REntro numeric\n")# Rojo Entropia
-    arffDB.write("@attribute Estado {N,H,I}\n")# Atributo Clasificador
+    arffDB.write("@attribute Brillo numeric\n")# Brillo
+    arffDB.write("@attribute Saturacion numeric\n")# Saturacion
     arffDB.write("\n\n@data\n")
     
     # Para Cada imagen
@@ -83,7 +81,7 @@ def main():
         # Se recorren los grinds
         nameImg = imagenes[0]
         imageFile = cv2.imread(nameImg)
-        nimage = imageFile
+        imgHSV = cv2.cvtColor(imageFile, cv2.COLOR_BGR2HSV)
 
         heigth, width, depth = imageFile.shape
 
@@ -103,14 +101,18 @@ def main():
                 medAzul, desStAzu = cv2.meanStdDev(imageFile[miny:maxy, minx:maxx, 0])
                 medVerd, desStVer = cv2.meanStdDev(imageFile[miny:maxy, minx:maxx, 1])
                 medRojo, desStRoj = cv2.meanStdDev(imageFile[miny:maxy, minx:maxx, 2])
+                Brillo, _= cv2.meanStdDev(imgHSV[miny:maxy, minx:maxx, 1])
+                Satura, _= cv2.meanStdDev(imgHSV[miny:maxy, minx:maxx, 2])
 
                 #Se escribe en el archivo
-                arffDB.write(str(medAzul[0][0])+",")
-                arffDB.write(str(medVerd[0][0])+",")
-                arffDB.write(str(medRojo[0][0])+",")
-                arffDB.write(str(desStAzu[0][0])+",")
-                arffDB.write(str(desStVer[0][0])+",")
-                arffDB.write(str(desStRoj[0][0])+",")
+                arffDB.write(str(medAzul[0][0])+",")# Media Azul
+                arffDB.write(str(medVerd[0][0])+",")# Media Verde
+                arffDB.write(str(medRojo[0][0])+",")# Media Roja
+                arffDB.write(str(desStAzu[0][0])+",")# Desv Azul
+                arffDB.write(str(desStVer[0][0])+",")# Desv Verd
+                arffDB.write(str(desStRoj[0][0])+",")# Desv Roja
+                arffDB.write(str(Brillo[0][0])+",")# Brillo
+                arffDB.write(str(Satura[0][0])+",")# Saturacion
                 arffDB.write(imagenes[1][contadorGrids]+"\n")
                 # Contador de los grid hasta TOTAL_GRIDS
                 contadorGrids += 1
