@@ -7,7 +7,7 @@ def argumentos():
     '''
     Argumentos() recibe de la linea de comandos
     -h, --help ayuda de los comandos
-    -f, --file nombre de alrchivo .cfg
+    -f, --file nombre de alrchivo
     --version  version del programa
     Retorna los argumentos recibidos
     '''
@@ -21,7 +21,7 @@ def argumentos():
                     help='Carga las imagenes a leer')
 
     parser.add_argument('--version', action='version',
-                    version='%(prog)s 1.0')
+                    version='%(prog)s 1.3')
 
     args = parser.parse_args()
 
@@ -31,11 +31,6 @@ def argumentos():
 
     #Retgorna un string con el nombre del archivo
     return ""+args.archivoImg[0]
-    '''
-    #Busca la existencia de archivos .config
-    if archivoImg.find(".cfg") == -1:
-        sys.exit("No ingreso un archivo valido")
-    '''
 
 
 if __name__ == '__main__':
