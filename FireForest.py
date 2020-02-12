@@ -1,4 +1,4 @@
-import args
+import argparse
 import sys
 import cv2
 import numpy as np
@@ -10,6 +10,41 @@ GRID_COLUMS = 8
 GRID_ROWS   = 4
 TOTAL_GRIDS = GRID_COLUMS * GRID_ROWS
 
+#
+# Funcion que recibe los argumentos de la linea de comandos
+#
+def argumentos():
+    '''
+    Argumentos() recibe de la linea de comandos
+    -h, --help ayuda de los comandos
+    -f, --file nombre de alrchivo
+    --version  version del programa
+    Retorna los argumentos recibidos
+    '''
+    parser = argparse.ArgumentParser(description='FireForest')
+
+    parser.add_argument('-f','--file', 
+                    action='store',
+                    default=None,
+                    nargs=1,
+                    dest='archivoImg',
+                    help='Carga las imagenes a leer')
+
+    parser.add_argument('--version', action='version',
+                    version='%(prog)s 1.3')
+
+    args = parser.parse_args()
+
+    #Reviza si recibio los archivos
+    if args.archivoImg == None:
+        sys.exit("No a ingresado ningun archivo\nUtilice [-h] para ayuda")
+
+    #Retgorna un string con el nombre del archivo
+    return ""+args.archivoImg[0]
+
+#
+# Funcion que procesa El Archivo
+#
 def procesarArchivo():
     '''
         Abre el archivo recivido del argumento -f, --file
@@ -17,7 +52,7 @@ def procesarArchivo():
         en una lista de listas de strings
     '''
     #Recibe los argumentos de la linea de comandos
-    nombreArchivo = args.argumentos()
+    nombreArchivo = argumentos()
 
     #Intenta Abrir el Archivo
     try:
@@ -49,6 +84,7 @@ def procesarArchivo():
 
 # 
 # Main
+# Analisis de las imagenes
 #
 def main():
     listaImg = procesarArchivo()
@@ -73,6 +109,7 @@ def main():
     arffDB.write("@attribute RDesEst numeric\n")# Rojo Desviacion estandar
     arffDB.write("@attribute Brillo numeric\n")# Brillo
     arffDB.write("@attribute Saturacion numeric\n")# Saturacion
+    arffDB.write("@attribute IsFire {H,N,I}")
     arffDB.write("\n\n@data\n")
     
     # Para Cada imagen
